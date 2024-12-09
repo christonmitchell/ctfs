@@ -1,0 +1,47 @@
+
+Here's the updated version with "I" instead of "we":
+
+FD Challenge - First Challenge in the Toddlers Bottle Series
+This challenge is part of the "Toddlers Bottle" series, and it focuses on understanding file descriptors in Linux. It's an easier challenge, ideal for beginners in Capture the Flag (CTF) competitions.
+
+Steps to Complete the Challenge:
+Reading the Challenge:
+
+The name "FD" hints at file descriptors in Linux, which is the key to solving this challenge.
+The challenge suggests learning about Linux file descriptors before diving into solving it.
+Setting Up:
+
+I SSH'd into the provided server using the FD user and the password guest.
+The SSH command includes a non-default port (-p option), so I made sure to connect on the correct port.
+I encountered a DNS issue during the connection but resolved it by using the server's IP address directly.
+Investigating the Environment:
+
+I logged into the server as the FD user, with the home directory set to /home/FD.
+I attempted to read the flag file, but received a "permission denied" error. This was because the file was owned by FD_pwn and not by me.
+Understanding File Permissions:
+
+The flag file is owned by FD_pwn, with read permissions granted to the root group.
+As the FD user, I didn’t have permission to read the flag file.
+Identifying the FD Binary:
+
+I found an executable binary called FD, which has a special setuid permission for the FD_pwn user.
+The goal was to exploit this binary to read the flag file, since it runs with FD_pwn permissions.
+Analyzing the FD Binary:
+
+I copied the FD binary to my local machine using SCP for further analysis.
+The binary checks for a valid argument and uses the read() function to get input from a file descriptor.
+By passing the correct file descriptor value, I could control the input and bypass the permission restrictions to read the flag.
+Exploiting the Binary:
+
+I examined the FD binary's code, focusing on how it handles file descriptors and buffer reading.
+I manipulated the file descriptor input by passing the decimal value 4660 which was hexadecimal 0x1234, which then allowed me to read the flag.( Decimal converter calculator can be used)
+Obtaining the Flag:
+
+I used the input let me win\n after manipulating the file descriptor, which triggered the flag response.
+I successfully retrieved the flag and completed the challenge.
+Conclusion:
+
+This was a challenging yet educational task that required an understanding of Linux file I/O and file descriptor manipulation.
+I completed the challenge and earned one point for solving this easy CTF task.
+
+Link to CTF refer to [fd]:https://pwnable.kr/play.php
